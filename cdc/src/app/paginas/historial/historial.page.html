@@ -1,0 +1,51 @@
+<ion-header>
+
+  <!--Agrega color="success" para que se ponga de color verde el toolbar--> 
+  <ion-toolbar color="secondary">
+
+    <!--Agrega slot="start" para que el icono de regreso se ponga a la derecha-->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>HISTORIAL</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+<div class="xd">
+  <div class="contenedor">
+
+    <ion-card color="primary"> 
+      <ion-item color="secondary">
+        <ion-icon name="pin"></ion-icon>
+        <ion-label>HISTORIAL DE ALIMENTOS</ion-label>
+      </ion-item>
+      <ion-card-content class="ion-text-center">
+        Se recopilan todos los alimentos consumidos de todas las 
+        dietas creadas seleccionando un periodo de tiempo.
+        <br>
+        <ion-button routerLink='/historial-alimentos' expand="full" color="secondary" shape="round" class="btn-primary"> Ver Alimentos</ion-button>
+      </ion-card-content>
+    </ion-card>
+    
+    <br>
+    <ion-card color="primary">
+      <ion-item color="secondary">
+        <ion-icon name="pin"></ion-icon>
+        <ion-label>HISTORIAL DE DIETAS</ion-label>
+      </ion-item>
+      <ion-card-content class="ion-text-center">
+        Se muestran todas las dietas creadas, las diferentes comidas 
+        que contienen y los alimentos que las componen.
+        <br>
+        <ion-button routerLink='/historial-dietas' expand="full" color="secondary" shape="round" class="btn-primary">Ver Dietas</ion-button>
+      </ion-card-content>  
+    </ion-card>
+
+  </div>
+</div>
+</ion-content>
+

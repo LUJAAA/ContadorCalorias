@@ -1,0 +1,7 @@
+{
+  "name": "cdc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

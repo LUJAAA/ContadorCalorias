@@ -1,0 +1,184 @@
+<ion-header>
+
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start" *ngIf="regresover">
+      <ion-back-button defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="regresover2">
+      <ion-back-button (click)="controlPantalla()" routerLink='/historial-dietas'>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>HISTORIAL DIETAS</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content *ngIf="ver1">
+
+  <div class="contenedor">
+
+    <div class="menu">
+
+      <ion-card color="primary">
+        <ion-item color="secondary">
+          <ion-label position="stacked">NOMBRE</ion-label>
+          <p>{{nombresDietas[numeroDietaActual]}}</p>
+        </ion-item>
+
+        <ion-item color="primary">
+          <ion-label class="ion-text-center">
+
+            <ion-grid>
+              <ion-row>
+                <ion-col height="250" width="250" size="12" *ngFor="let photo of photos; index as position">
+                  <ion-img src="{{photo.base64 ? photo.base64 : photo.webviewPath}}"
+                    (click)="showActionSheet(photo, position)"></ion-img>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <div>
+              <ion-fab style="margin-left: 200px" vertical="top" slot="fixed">
+                <ion-button (click)="newPhoto()">
+                  <ion-icon name="camera"></ion-icon>
+                </ion-button>
+              </ion-fab>
+            </div>
+
+            <div>
+              <ion-fab style="margin-left: 50px" vertical="top" *ngFor="let photo of photos; let i = index">
+                <div>
+                  <ion-button (click)="deleteTask(i)">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+                </div>
+              </ion-fab>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item color="primary">
+          <ion-label position="stacked">Calorias</ion-label>
+          <p>{{cantidadCalorias[numeroDietaActual]}}</p>
+        </ion-item>
+        <ion-item color="primary">
+          <ion-label position="stacked">Creacion</ion-label>
+          <p>{{fechaCreacion[numeroDietaActual]}}</p>
+        </ion-item>
+
+
+
+        <ion-item color="primary">
+          <ion-button slot="start" (click)="Izquierda()" fill="outline" color="secondary">
+            Previo
+          </ion-button>
+          <ion-label class="ion-text-center">
+            {{numeroDietaActual}}/{{totalDietasCreadas}}
+          </ion-label>
+          <ion-button slot="end" (click)="Derecha()" fill="outline" color="secondary">
+            Siguiente
+          </ion-button>
+        </ion-item>
+        <ion-item color="primary">
+          <ion-button (click)="mostrar()" slot="start" fill="outline" color="secondary">
+            VER MAS
+          </ion-button>
+        </ion-item>
+
+
+      </ion-card>
+
+    </div>
+
+  </div>
+
+</ion-content>
+
+<!--Parte donde se visualizan las dietas-->
+<!--Al presionar ver mas se despliga la lista de cada dieta **aun no lo hace**-->
+<ion-content *ngIf="ver">
+  <ion-item color="success">
+    <ion-label>
+      DIETA:{{dieta}}
+    </ion-label>
+  </ion-item>
+  <ion-item color="success">
+    <ion-label>
+      TOTAL:{{calo}}
+    </ion-label>
+  </ion-item>
+
+  <div *ngIf="c_desayuno">
+    <ion-item color="warning">
+      <ion-label>DESAYUNO</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let item of l_deyauno">
+      <ion-label>Alimento:{{item.nombre}}<br>
+        Calorias:{{item.calorias}}<br>
+        Cantidad:{{item.cantidad}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total:{{t_por_dieta[0]}} cal</ion-label>
+    </ion-item>
+  </div>
+  <div *ngIf="c_marienda">
+    <ion-item color="warning">
+      <ion-label>MERIENDA</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let item of l_meridenda">
+      <ion-label>Alimento:{{item.nombre}}<br>
+        Calorias:{{item.calorias}}<br>
+        Cantidad:{{item.cantidad}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total:{{t_por_dieta[1]}} cal</ion-label>
+    </ion-item>
+  </div>
+  <div *ngIf="c_comida">
+    <ion-item color="warning">
+      <ion-label>COMIDA</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let item of l_comida">
+      <ion-label>Alimento:{{item.nombre}}<br>
+        Calorias:{{item.calorias}}<br>
+        Cantidad:{{item.cantidad}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total:{{t_por_dieta[2]}} cal</ion-label>
+    </ion-item>
+  </div>
+  <div *ngIf="c_entrecomida">
+    <ion-item color="warning">
+      <ion-label>ENTRECOMIDA</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let item of l_entrecomida">
+      <ion-label>Alimento:{{item.nombre}}<br>
+        Calorias:{{item.calorias}}<br>
+        Cantidad:{{item.cantidad}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total:{{t_por_dieta[3]}} cal</ion-label>
+    </ion-item>
+  </div>
+  <div *ngIf="c_cena">
+    <ion-item color="warning">
+      <ion-label>CENA</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let item of l_cena">
+      <ion-label>Alimento:{{item.nombre}}<br>
+        Calorias:{{item.calorias}}<br>
+        Cantidad:{{item.cantidad}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total:{{t_por_dieta[4]}} cal</ion-label>
+    </ion-item>
+  </div>
+
+
+</ion-content>
